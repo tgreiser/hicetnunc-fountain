@@ -4,6 +4,8 @@ You might find it interesting if you want to know how to use pytezos to send tra
 
 Join us on the discord - https://discord.gg/jKNy6PynPK
 
+ :taco:+:snake:+:robot: = :fountain:
+
 Requirements:
 
 - Python 3
