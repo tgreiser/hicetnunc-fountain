@@ -33,4 +33,5 @@ export FOUNTAIN_PASS="matlock"
 python fountain.py
 ```
 
-If you like this project, please support my art - https://www.hicetnunc.xyz/tz/tz1cTS1WwovU7SC783xgJxZrzr151mcshmNi
+- If you like this project, consider supporting my art - https://www.hicetnunc.xyz/tz/tz1cTS1WwovU7SC783xgJxZrzr151mcshmNi
+- If you want to donate to help fund the Fountain, send XTZ to tz1eggoxCes1qYRGLc3E1bg4uzuCUUuuQBb9
