@@ -29,10 +29,14 @@ send_amt = .33333
 send_to = []
 applied = {}
 
-print("%s current balance: %s XTZ" % (acct_id, int(acct['balance']) / 1000000) )
+#print("%s current balance: %s XTZ" % (acct_id, int(acct['balance']) / 1000000) )
 
 def balance(acct_id):
-    acct = pytezos.account(acct_id)
+    try:
+        acct = pytezos.account(acct_id)
+    except RpcError as e:
+        print(e)
+        return -1
     return int(acct['balance'])
 
 def transfer(send_to, send_amt):
@@ -87,6 +91,8 @@ def run_opg(opg):
 
 def store_balance(service, row_num, balance):
     processed = '' if balance == 0 else 'Skipped'
+    if balance == -1:
+        processed = "Invalid Tezos account number"
     values = [
             [ float(balance) / 1000000, processed ]
             ]
@@ -145,13 +151,13 @@ def main():
             row_num += 1
             if row[1] == '':
                 break
-            address = row[1]
+            address = row[1].strip()
             approved = row[4] == 'TRUE'
             processed_on = row[6] if len(row) > 6 else ''
-            print('%s, %s' % (address, approved))
+            #print('%s, %s' % (address, approved))
             if approved and processed_on == '':
                 acct_balance = balance(address)
-                print("Balance=%0.4f XTZ %s" % (acct_balance / 1000000, row_num))
+                print("%s balance=%0.4f XTZ %s" % (address, acct_balance / 1000000, row_num))
                 # TODO - write balance to sheet
                 store_balance(service, row_num, acct_balance)
                 if acct_balance == 0:
