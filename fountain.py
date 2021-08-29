@@ -25,7 +25,7 @@ pytezos = pytezos.using(shell='mainnet', key=key)
 acct_id = pytezos.key.public_key_hash()
 acct = pytezos.account()
 
-send_amt = .33333
+send_amt = .5
 send_to = []
 applied = {}
 
@@ -42,10 +42,14 @@ def balance(acct_id):
 def transfer(send_to, send_amt):
     opg = pytezos.transaction(destination=send_to, amount=Decimal(send_amt))
     res = run_opg(opg)
+    while res == None:
+        time.sleep(.1)
+        return transfer(send_to, send_amt)
+
     op_hash = res['hash']
     while True:
-        time.sleep(60)
-        ver = verify_op(op_hash)
+        time.sleep(30)
+        ver = verify_op(op_hash, res['counter'])
         if ver == 1:
             applied[send_to] = op_hash
             break
@@ -54,6 +58,7 @@ def transfer(send_to, send_amt):
             return transfer(send_to, send_amt)
         else:
             print("Waiting for confirmation for %s" % op_hash)
+            print(pytezos.shell.head.level())
             # ver 0 pass through and try again
 
     return op_hash
@@ -61,14 +66,14 @@ def transfer(send_to, send_amt):
 # 1 - verified
 # 0 - not found
 # -1 - failure
-def verify_op(op_hash):
+def verify_op(op_hash, level):
     try:
-        opg = pytezos.shell.head.operations[op_hash]()
+        opg = pytezos.shell.blocks[level].operations[op_hash]()
     except StopIteration as e:
         return 0
     ret = -1
     for op in OperationResult.iter_contents(opg):
-        #print(op['metadata']['operation_result']['status'])
+        print(op['metadata']['operation_result']['status'])
         if op['metadata']['operation_result']['status'] == 'applied':
             ret = 1
             break
@@ -80,13 +85,16 @@ def run_opg(opg):
     except RpcError as e:
         retry = True
         for arg in e.args:
-            if arg['kind'] != 'temporary':
+            if isinstance(arg, str):
+                print("ERROR! %s" % arg)
+            elif arg['kind'] != 'temporary':
                 retry = False
                 print("ERROR! %s" % arg)
                 break
         if retry:
-            time.sleep(.1)
-            return run_opg(opg)
+            return None
+    except KeyError as ke:
+        return None
     return res
 
 def store_balance(service, row_num, balance):
