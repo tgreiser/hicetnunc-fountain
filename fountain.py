@@ -49,7 +49,7 @@ def transfer(send_to, send_amt):
     op_hash = res['hash']
     while True:
         time.sleep(30)
-        ver = verify_op(op_hash, res['counter'])
+        ver = verify_op(op_hash)
         if ver == 1:
             applied[send_to] = op_hash
             break
@@ -68,7 +68,8 @@ def transfer(send_to, send_amt):
 # -1 - failure
 def verify_op(op_hash, level):
     try:
-        opg = pytezos.shell.blocks[level].operations[op_hash]()
+        # look 5 blocks back for our operation
+        opg = pytezos.shell.blocks[-5:].find_operation(op_hash)
     except StopIteration as e:
         return 0
     ret = -1
