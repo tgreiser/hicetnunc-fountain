@@ -66,7 +66,7 @@ def transfer(send_to, send_amt):
 # 1 - verified
 # 0 - not found
 # -1 - failure
-def verify_op(op_hash, level):
+def verify_op(op_hash):
     try:
         # look 5 blocks back for our operation
         opg = pytezos.shell.blocks[-5:].find_operation(op_hash)
