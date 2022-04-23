@@ -16,11 +16,11 @@ from google.oauth2.credentials import Credentials
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID and range of a sample spreadsheet.
-FOUNTAIN_SPREADSHEET_ID = '1LZLUqemQ5Q2gYllW6BTxfRYzC_IRihbsOta7xHQEe7I'
+FOUNTAIN_SPREADSHEET_ID = '1fcMoCMw44mZvA2qR84Bdxfi90b0AEfINflPdiBqU3kg'
 FOUNTAIN_RANGE_NAME = 'Form Responses 1!A2:I'
 
 # Address: tz1UqhPnVXdPccrVsa5khscwCLHTF2Q2CAer
-key = Key.from_encoded_key(os.environ['FOUNTAIN_KEY'], os.environ['FOUNTAIN_PASS'])
+key = Key.from_encoded_key(os.environ['TEIA_FOUNTAIN_KEY'], os.environ['TEIA_FOUNTAIN_PASS'])
 pytezos = pytezos.using(shell='mainnet', key=key)
 acct_id = pytezos.key.public_key_hash()
 acct = pytezos.account()
