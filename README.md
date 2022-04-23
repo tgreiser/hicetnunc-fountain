@@ -1,9 +1,9 @@
-# Hic et Nunc XTZ Fountain
-Pytezos bot for managing the Hic et Nunc Tezos Fountain. H=N is a NFT communit build on Tezos. See: https://www.hicetnunc.xyz/about
+# Teia XTZ Fountain
+Pytezos bot for managing the Teia Tezos Fountain. Teia is a NFT community build on Tezos. See: https://teia.art/about
 
 This project may be of educational use if you want to know how to use pytezos to send transactions and verify the completion.
 
-Join us on the discord - https://discord.gg/jKNy6PynPK
+Join us on the discord - https://discord.gg/MgDT9xK3GJ
 
  :taco:+:snake:+:robot: = :fountain:
 
@@ -28,10 +28,10 @@ Export these crenentials as environment variables as shown below.
 ## Run The Fountain
 
 ```
-export FOUNTAIN_KEY="edesk..."
-export FOUNTAIN_PASS="matlock"
+export TEIA_FOUNTAIN_KEY="edesk..."
+export TEIA_FOUNTAIN_PASS="matlock"
 python fountain.py
 ```
 
-- If you like this project, consider supporting my art - https://www.hicetnunc.xyz/tz/tz1cTS1WwovU7SC783xgJxZrzr151mcshmNi
-- If you want to donate to help fund the Fountain, send XTZ to tz1eggoxCes1qYRGLc3E1bg4uzuCUUuuQBb9
+- If you like this project, consider supporting my art - https://teia.art/tz/tz1cTS1WwovU7SC783xgJxZrzr151mcshmNi
+- If you want to donate to help fund the Fountain, send XTZ to **TBA**
